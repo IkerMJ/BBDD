@@ -1,0 +1,66 @@
+CREATE TABLE PRODUCTO(
+CODPRODUCTO NUMBER(5) NOT NULL,
+NOMBRE VARCHAR2(40) NOT NULL,
+TIPO VARCHAR2(2) NOT NULL,
+PRECIOCOSTE NUMBER(5,2) NOT NULL,
+PRECIOVENTA NUMBER(5,2) NOT NULL,
+IVA NUMBER(2) NOT NULL,
+CONSTRAINT pk_PRODUCTO PRIMARY KEY (CODPRODUCTO)
+);
+
+CREATE TABLE VENTA(
+CODVENTA NUMBER(5) NOT NULL,
+FECHA DATE NOT NULL,
+CONSTRAINT pk_VENTA PRIMARY KEY(CODVENTA)
+);
+
+CREATE TABLE LINEAVENTA(
+CODPRODUCTO NUMBER(5) NOT NULL,
+CODVENTA NUMBER(5) NOT NULL,
+CANTIDAD NUMBER(2) NOT NULL,
+CONSTRAINT pk_lineaventa PRIMARY KEY(CODPRODUCTO,CODVENTA),
+CONSTRAINT fk_lineaventa FOREIGN KEY (CODVENTA) REFERENCES VENTA(CODVENTA),
+CONSTRAINT fk_linea FOREIGN KEY(CODPRODUCTO) REFERENCES PRODUCTO(CODPRODUCTO)
+);
+
+INSERT INTO VENTA(CODVENTA, FECHA) VALUES(10000, '21/01/2023');
+INSERT INTO VENTA(CODVENTA, FECHA) VALUES(10001, '20/02/2023');
+INSERT INTO VENTA(CODVENTA, FECHA) VALUES(10002, '16/03/2023');
+INSERT INTO VENTA(CODVENTA, FECHA) VALUES(10005, '01/01/2023');
+INSERT INTO VENTA(CODVENTA, FECHA) VALUES(10010, '23/02/2023');
+
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50000, 'QUESO', 'L', 10.52, 25.63, 10);
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50005, 'LECHE', 'L', 10.56, 12.55, 4);
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50010, 'HUEVOS', 'H', 26.03, 35.20, 10);
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50015, 'CARNE POLLO', 'C', 11.20, 40.90, 2);
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50020, 'CARNE TERNERA', 'C', 50.79, 64.52, 4);
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50025, 'YOGURT', 'L', 2.56, 7.55, 10);
+INSERT INTO PRODUCTO(CODPRODUCTO, NOMBRE, TIPO, PRECIOCOSTE, PRECIOVENTA, IVA) VALUES(50030, 'JUDIAS', 'V', 18.90, 20.00, 4);
+
+INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50000, 10000, 2);
+INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50005, 10001, 5);
+INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50010, 10002, 10);
+INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50015, 10005, 11);
+INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50020, 10010, 9);
+
+
+
+
+
+a) Mostrar cuántos productos hay cuyo precio de coste sea menor que la mitad del precio de venta.
+b) Mostrar el precio más caro de los productos con IVA 10%
+c) Mostrar el precio más barato de los productos.
+d) Contar cuantos productos de tipo cárnico (Tipo=C) tienen un precio de coste menor que la tercera
+parte del precio de venta.
+e) Mostrar cuánto dinero se pretende ganar con los productos lácteos (tipo = L)
+f) Mostrar la media de la ganancia de los productos cuyo tipo es Lácteo (L), Cárnico (C), Verdura (V)
+y Hortaliza (H).
+g) Mostrar los precios de coste y de venta con un solo decimal de aquellos productos cuyo nombre
+empieza por L
+h) Mostrar los precios de coste redondeados con 1 decimal de aquellos productos cuyo precio de
+venta es solo un 20% más que el de coste y su tipo el H o L
+i) Mostrar el resto de la división del precio de venta con el de coste para aquellos productos de IVA
+del 4% y del 10%
+j) Mostrar cuantas ventas se han realizado. Como cada fila que hay en la tabla Venta representa una
+venta, basta con contar el número de filas que tiene esa tabla.
+k) Mostrar el nombre de los productos de tipo L, transformando su nombre a minúsculas.
