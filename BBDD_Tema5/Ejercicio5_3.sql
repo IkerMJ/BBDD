@@ -43,24 +43,24 @@ INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50010, 10002, 10)
 INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50015, 10005, 11);
 INSERT INTO LINEAVENTA(CODPRODUCTO, CODVENTA, CANTIDAD) VALUES(50020, 10010, 9);
 
+SELECT COUNT(*) FROM PRODUCTO WHERE PRECIOCOSTE<(PRECIOVENTA/2);
 
+SELECT MAX(PRECIOCOSTE) FROM PRODUCTO WHERE IVA=10;
 
+SELECT MIN(PRECIOCOSTE) FROM PRODUCTO;
 
+SELECT COUNT(*) FROM PRODUCTO WHERE TIPO='C' AND PRECIOCOSTE<(PRECIOVENTA/3);
 
-a) Mostrar cuántos productos hay cuyo precio de coste sea menor que la mitad del precio de venta.
-b) Mostrar el precio más caro de los productos con IVA 10%
-c) Mostrar el precio más barato de los productos.
-d) Contar cuantos productos de tipo cárnico (Tipo=C) tienen un precio de coste menor que la tercera
-parte del precio de venta.
-e) Mostrar cuánto dinero se pretende ganar con los productos lácteos (tipo = L)
-f) Mostrar la media de la ganancia de los productos cuyo tipo es Lácteo (L), Cárnico (C), Verdura (V)
-y Hortaliza (H).
-g) Mostrar los precios de coste y de venta con un solo decimal de aquellos productos cuyo nombre
-empieza por L
-h) Mostrar los precios de coste redondeados con 1 decimal de aquellos productos cuyo precio de
-venta es solo un 20% más que el de coste y su tipo el H o L
-i) Mostrar el resto de la división del precio de venta con el de coste para aquellos productos de IVA
-del 4% y del 10%
-j) Mostrar cuantas ventas se han realizado. Como cada fila que hay en la tabla Venta representa una
-venta, basta con contar el número de filas que tiene esa tabla.
-k) Mostrar el nombre de los productos de tipo L, transformando su nombre a minúsculas.
+SELECT SUM((PRECIOVENTA-PRECIOCOSTE)*LINEAVENTA.CANTIDAD) FROM PRODUCTO, LINEAVENTA WHERE PRODUCTO.CODPRODUCTO=LINEAVENTA.CODPRODUCTO AND TIPO='L';
+
+SELECT AVG((PRECIOVENTA-PRECIOCOSTE)*LINEAVENTA.CANTIDAD) FROM PRODUCTO, LINEAVENTA WHERE PRODUCTO.CODPRODUCTO=LINEAVENTA.CODPRODUCTO AND TIPO IN('L','C','V','H');
+
+SELECT TRUNC(PRECIOCOSTE, 1), TRUNC(PRECIOVENTA, 1) FROM PRODUCTO WHERE NOMBRE LIKE 'L%';
+
+SELECT ROUND(PRECIOCOSTE, 1) FROM PRODUCTO WHERE TIPO IN('H', 'L') AND PRECIOVENTA>(PRECIOCOSTE*1.2);
+
+SELECT MOD(PRECIOVENTA, PRECIOCOSTE) FROM PRODUCTO WHERE IVA IN(4,10);
+
+SELECT COUNT(*) FROM LINEAVENTA;
+
+SELECT LOWER(NOMBRE) FROM PRODUCTO WHERE TIPO='L';
