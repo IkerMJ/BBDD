@@ -38,7 +38,7 @@ INSERT INTO fabricantes VALUES(9, 'Xiaomi');
 CONSULTAS SOBRE UNA TABLA
 a. SELECT nombre FROM productos;
 
-b. SELECT nombre AS "nombre de producto", precio AS "euros", precio*1.12 AS "dólares" FROM productos;
+b. SELECT nombre AS "nombre de producto", precio AS "euros", precio*1.12 AS "dolares" FROM productos;
 
 c. SELECT UPPER(nombre), precio FROM productos;
 
