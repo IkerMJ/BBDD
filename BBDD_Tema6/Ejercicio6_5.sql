@@ -1,0 +1,65 @@
+A)
+SET SERVEROUTPUT ON
+CREATE OR REPLACE PROCEDURE Ejercicio5_1(i_codEmpleado VARCHAR2) IS
+    dni VARCHAR(9);
+    codEmpleado VARCHAR(5) := i_codEmpleado;
+BEGIN
+    SELECT DNI 
+    INTO dni
+    FROM DATOSPERSONALES
+    WHERE CLAVE_EMPLEADO = codEmpleado;
+  
+    DBMS_OUTPUT.PUT_LINE('El DNI para ese codigo de empleado es: '||dni);
+EXCEPTION
+    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('Error');
+END;
+
+CALL EJERCICIO5_1('EMP02');
+
+B)
+CREATE OR REPLACE FUNCTION Ejercicio5_2 RETURN NUMBER IS
+    vNum NUMBER;
+    sinEmpleados EXCEPTION;
+BEGIN
+    SELECT COUNT(*)
+    INTO vNum
+    FROM DEPARTAMENTO, EMPLEADOS
+    WHERE DEPARTAMENTO.ID_DEPARTAMENTO = EMPLEADOS.ID_DEPARTAMENTO
+    AND DEPARTAMENTO.NOMBRE = 'Personal';
+    
+    IF vNum=0 THEN
+        RAISE sinEmpleados;
+    END IF;
+    
+    RETURN vNum;
+EXCEPTION
+    WHEN sinEmpleados THEN vNum := -999;
+    RETURN vNum;
+END Ejercicio5_2;
+
+SELECT Ejercicio5_2() FROM DUAL;
+
+C)
+SET SERVEROUTPUT ON
+CREATE OR REPLACE FUNCTION Ejercicio5_3(i_departamento VARCHAR2) RETURN VARCHAR2 IS
+    vNum NUMBER;
+    sinEmpleados EXCEPTION;
+    departamento VARCHAR(12) := i_departamento;
+BEGIN
+    SELECT COUNT(*)
+    INTO vNum
+    FROM DEPARTAMENTO, EMPLEADOS
+    WHERE DEPARTAMENTO.ID_DEPARTAMENTO = EMPLEADOS.ID_DEPARTAMENTO
+    AND DEPARTAMENTO.NOMBRE = departamento;
+    
+    IF vNum=0 THEN
+        RAISE sinEmpleados;
+    END IF;
+    
+    RETURN vNum;
+EXCEPTION
+    WHEN sinEmpleados THEN vNum := -999;
+    RETURN vNum;
+END Ejercicio5_3;
+
+SELECT Ejercicio5_3('Contabilidad') FROM DUAL;

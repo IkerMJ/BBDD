@@ -1,0 +1,10 @@
+SET SERVEROUTPUT ON
+CREATE OR REPLACE PROCEDURE Ejercicio1 IS
+    vVariable VARCHAR(50) := 5;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('La variable es: '||vVariable);
+EXCEPTION
+    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('Error');
+END;
+
+CALL Ejercicio1();
