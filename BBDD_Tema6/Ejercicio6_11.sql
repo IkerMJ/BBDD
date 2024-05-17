@@ -8,4 +8,4 @@ BEGIN
     RETURN (prApellido||' '||sgApellido);
 END;
 
-SELECT ejercicio11('12354678A') from dual;
+SELECT Ejercicio11('12354678A') FROM DUAL;
